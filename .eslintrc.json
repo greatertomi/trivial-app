@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "airbnb-typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -13,7 +14,8 @@
             "jsx": true
         },
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "react",
@@ -47,6 +49,10 @@
         "react/jsx-props-no-spreading": "off",
         "react/jsx-wrap-multilines": "off",
         "react/prop-types": "off",
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "@typescript-eslint/comma-dangle": "off",
+        "@typescript-eslint/indent": "off",
+        "no-confusing-arrow": "off",
+        "no-nested-ternary": "off"
     }
 }
