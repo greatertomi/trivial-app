@@ -54,6 +54,7 @@
         "@typescript-eslint/indent": "off",
         "no-confusing-arrow": "off",
         "no-nested-ternary": "off",
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "operator-linebreak": "off"
     }
 }

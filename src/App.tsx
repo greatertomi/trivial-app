@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material';
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -10,17 +11,19 @@ import QuizPage from './pages/QuizPage';
 import ReviewPage from './pages/ReviewPage';
 import { theme } from './theme';
 
-const PageContainer = styled.div`
+const BrowserRouter = styled(Router)`
   background-color: #f3f5f9;
   padding-bottom: 50px;
   min-height: 100vh;
 `;
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <PageContainer>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <BrowserRouter>
           <Navbar />
           <Routes>
@@ -29,8 +32,8 @@ const App = () => {
             <Route path="/review" element={<ReviewPage />} />
           </Routes>
         </BrowserRouter>
-      </PageContainer>
-    </ThemeProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
