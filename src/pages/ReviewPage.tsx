@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import { BsArrowRepeat } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Emoji from '../components/Emoji';
 import QuizQuestion from '../components/review/QuizQuestion';
@@ -29,7 +30,13 @@ const ReviewPage = () => {
         passed={false}
       />
       <Box mt={1}>
-        <Button size="large" color="primary" variant="contained">
+        <Button
+          component={Link}
+          to="/"
+          variant="contained"
+          color="primary"
+          size="large"
+        >
           <Box mr={1}>Try Again</Box>
           <BsArrowRepeat size={20} color="white" />
         </Button>

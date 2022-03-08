@@ -1,10 +1,13 @@
 import { ThemeProvider } from '@mui/material';
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
 import Navbar from './components/Navbar';
 import GlobalStyle from './globalStyle';
 import LandingPage from './pages/LandingPage';
+import QuizPage from './pages/QuizPage';
+import ReviewPage from './pages/ReviewPage';
 import { theme } from './theme';
 
 const PageContainer = styled.div`
@@ -18,8 +21,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <PageContainer>
-        <Navbar />
-        <LandingPage />
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/review" element={<ReviewPage />} />
+          </Routes>
+        </BrowserRouter>
       </PageContainer>
     </ThemeProvider>
   );

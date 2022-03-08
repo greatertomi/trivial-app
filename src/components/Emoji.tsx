@@ -5,7 +5,7 @@ interface EmojiProps {
   symbol: string;
 }
 
-const Emoji: FC<EmojiProps> = ({ label, symbol }: any) => (
+const Emoji: FC<EmojiProps> = ({ label, symbol }) => (
   <span
     className="emoji"
     role="img"

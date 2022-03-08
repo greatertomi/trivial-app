@@ -1,5 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as QuizIcon } from '../assets/quiz.svg';
 
@@ -22,7 +23,13 @@ const LandingPage = () => {
         You will be presented with 10 True or False questions
       </Typography>
       <Typography variant="h6">Can you score 100%?</Typography>
-      <Button variant="contained" size="large" color="primary">
+      <Button
+        component={Link}
+        to="/quiz"
+        variant="contained"
+        color="primary"
+        size="large"
+      >
         Begin
       </Button>
     </LandingPageContainer>
