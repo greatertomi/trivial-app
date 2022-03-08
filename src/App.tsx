@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
 import Navbar from './components/Navbar';
+import QuizContext from './context/QuizContext';
 import GlobalStyle from './globalStyle';
 import LandingPage from './pages/LandingPage';
 import QuizPage from './pages/QuizPage';
@@ -24,14 +25,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/quiz" element={<QuizPage />} />
-            <Route path="/review" element={<ReviewPage />} />
-          </Routes>
-        </BrowserRouter>
+        <QuizContext>
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/quiz" element={<QuizPage />} />
+              <Route path="/review" element={<ReviewPage />} />
+            </Routes>
+          </BrowserRouter>
+        </QuizContext>
       </ThemeProvider>
     </QueryClientProvider>
   );

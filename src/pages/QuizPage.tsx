@@ -1,8 +1,6 @@
-import { Alert, Box, Button, CircularProgress } from '@mui/material';
-import React, { useMemo } from 'react';
-import { BsArrowRightCircle, BsUpload } from 'react-icons/bs';
+import { Alert, Box, CircularProgress } from '@mui/material';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Question from '../components/quiz/Question';
 import { QuizQuestion } from '../types/quiz';
@@ -17,19 +15,23 @@ export const QuizPageContainer = styled.div`
 `;
 
 const QuizPage = () => {
-  const hasQuestions = true;
   const { isLoading, error, data } =
     useQuery('queryData', () =>
       fetch(
         'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
       ).then((res) => res.json())
     ) || {};
+  const [questionNumber] = useState(1);
 
   const quizQuestions = useMemo<QuizQuestion[]>(() => {
     return data?.results;
   }, [data?.results]);
 
   console.log({ quizQuestions });
+
+  const answerQuestion = () => {
+    console.log('answering question');
+  };
 
   const renderQuestions = () => {
     return (
@@ -42,27 +44,11 @@ const QuizPage = () => {
           </Box>
         )}
         <Question
-          questionNumber="1 of 4"
-          category="Entertainment"
-          question="Is this good or bad?"
+          questionNumber={questionNumber}
+          category={quizQuestions[questionNumber - 1].category}
+          question={quizQuestions[questionNumber - 1].question}
+          answerQuestion={answerQuestion}
         />
-        {hasQuestions ? (
-          <Button variant="contained" color="primary" size="large">
-            <Box mr={2}>Continue</Box>
-            <BsArrowRightCircle color="white" size={20} />
-          </Button>
-        ) : (
-          <Button
-            component={Link}
-            to="/review"
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            <Box mr={2}>Submit</Box>
-            <BsUpload color="white" size={20} />
-          </Button>
-        )}
       </>
     );
   };
