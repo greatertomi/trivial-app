@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import './App.css';
 import Navbar from './components/Navbar';
 import GlobalStyle from './globalStyle';
-import ReviewPage from './pages/ReviewPage';
+import LandingPage from './pages/LandingPage';
 import { theme } from './theme';
 
 const PageContainer = styled.div`
@@ -19,7 +19,7 @@ const App = () => {
       <GlobalStyle />
       <PageContainer>
         <Navbar />
-        <ReviewPage />
+        <LandingPage />
       </PageContainer>
     </ThemeProvider>
   );
