@@ -13,7 +13,7 @@ const QuizQuestionContainer = styled.div<{ passed: boolean }>`
   background-color: #fff;
   margin: 0.5rem 0;
   padding: 1rem;
-  width: 800px;
+  width: 600px;
   font-size: 18px;
   box-shadow: 0 12px 19px rgb(60 128 209 / 9%);
   border-radius: 15px;
@@ -21,6 +21,14 @@ const QuizQuestionContainer = styled.div<{ passed: boolean }>`
   border-style: solid;
   border-color: ${({ passed }) =>
     passed ? GREEN_BORDER_COLOR : RED_BORDER_COLOR};
+
+  @media only screen and (max-width: 600px) {
+    width: 500px;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 800px;
+  }
 `;
 
 interface QuizQuestionProps {
