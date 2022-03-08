@@ -5,12 +5,11 @@ import { BsArrowRightCircle } from 'react-icons/bs';
 import styled from 'styled-components';
 import Option from '../components/quiz/Option';
 
-const QuizPageContainer = styled.div`
+export const QuizPageContainer = styled.div`
   width: 600px;
-  margin-top: 100px;
   position: fixed;
   left: calc(50% - (600px / 2));
-  top: 50px;
+  top: 100px;
   text-align: center;
 `;
 

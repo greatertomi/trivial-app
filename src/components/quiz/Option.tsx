@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
-import { GREEN_BORDER_COLOR, RED_BORDER_COLOR } from '../../utils/variables';
+import {
+  GREEN_BORDER_COLOR,
+  GREEN_COLOR,
+  RED_BORDER_COLOR,
+  RED_COLOR,
+} from '../../utils/variables';
 
 const OptionContainer = styled.div<{
   type: 'true' | 'false';
@@ -30,11 +35,10 @@ const OptionContainer = styled.div<{
   &:hover {
     border-color: ${({ type }) =>
       type === 'true' ? GREEN_BORDER_COLOR : RED_BORDER_COLOR};
-    color: ${({ type }) => (type === 'true' ? '#00973f' : '#b71c1c')};
+    color: ${({ type }) => (type === 'true' ? GREEN_COLOR : RED_COLOR)};
   }
 `;
 
-// FaCheck
 interface OptionProps {
   type: 'true' | 'false';
   selected?: boolean;
@@ -50,12 +54,12 @@ const Option: FC<OptionProps> = ({ type, selected = false, onClick }) => {
     >
       {type === 'true' ? (
         <>
-          <FaCheck color="#00973f" />
+          <FaCheck color={GREEN_COLOR} />
           <p>True</p>
         </>
       ) : (
         <>
-          <FaTimes color="#b71c1c" />
+          <FaTimes color={RED_COLOR} />
           <p>False</p>
         </>
       )}
