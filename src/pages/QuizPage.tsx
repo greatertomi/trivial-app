@@ -13,12 +13,17 @@ export const QuizPageContainer = styled.div`
   left: calc(50% - (600px / 2));
   top: 50px;
   text-align: center;
+
+  @media only screen and (max-width: 600px) {
+    width: 500px;
+    left: calc(50% - (500px / 2));
+  }
 `;
 
 const QuizPage = () => {
   const { quizQuestions, quizError, quizLoading, addAnsweredQuestion } =
     useQuizContext();
-  const [questionNumber, setQuestionNumber] = useState<number>(8);
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
   const navigate = useNavigate();
 
   const answerQuestion = (answer: QuizAnswer) => {
