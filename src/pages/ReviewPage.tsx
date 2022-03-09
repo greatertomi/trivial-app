@@ -54,7 +54,7 @@ const ReviewPage = () => {
           key={question}
         />
       ))}
-      <Box mt={1}>
+      <Box my={1}>
         <Button
           variant="contained"
           color="primary"

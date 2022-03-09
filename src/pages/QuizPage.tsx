@@ -15,8 +15,8 @@ export const QuizPageContainer = styled.div`
   text-align: center;
 
   @media only screen and (max-width: 600px) {
-    width: 500px;
-    left: calc(50% - (500px / 2));
+    width: 95%;
+    left: calc(50% - (95% / 2));
   }
 `;
 

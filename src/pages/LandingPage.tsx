@@ -12,6 +12,7 @@ const LandingPageContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 50px;
+  text-align: center;
 `;
 
 const LandingPage = () => {

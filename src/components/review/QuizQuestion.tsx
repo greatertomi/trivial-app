@@ -24,7 +24,7 @@ const QuizQuestionContainer = styled.div<{ correct: boolean }>`
     correct ? GREEN_BORDER_COLOR : RED_BORDER_COLOR};
 
   @media only screen and (max-width: 600px) {
-    width: 500px;
+    width: 95%;
   }
 
   @media only screen and (min-width: 992px) {
