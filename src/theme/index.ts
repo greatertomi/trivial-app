@@ -6,7 +6,4 @@ export const theme = createTheme({
       main: '#00973f',
     },
   },
-  typography: {
-    fontFamily: "'Ubuntu', sans-serif",
-  },
 });

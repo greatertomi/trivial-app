@@ -1,4 +1,5 @@
 import { Box, Button, Typography, useTheme } from '@mui/material';
+import parse from 'html-react-parser';
 import { mapValues } from 'lodash';
 import React, { FC, useState } from 'react';
 import { BsArrowRightCircle, BsUpload } from 'react-icons/bs';
@@ -20,11 +21,20 @@ const Question: FC<QuizPageProps> = ({
 }) => {
   const [selected, setSelected] = useState({ true: false, false: false });
   const theme = useTheme();
-  const [questionError] = useState(false);
+  const [questionError, setQuestionError] = useState(false);
 
   const handleClickOption = (type: string) => {
     const currentSelected = mapValues(selected, () => false);
+    setQuestionError(false);
     setSelected({ ...currentSelected, [type]: true });
+  };
+
+  const handleClickContinue = () => {
+    if (!selected.true && !selected.false) {
+      setQuestionError(true);
+    } else {
+      answerQuestion({});
+    }
   };
 
   return (
@@ -33,7 +43,7 @@ const Question: FC<QuizPageProps> = ({
         {questionNumber} of 10 ({category})
       </Typography>
       <Typography variant="h5" fontWeight="bold">
-        {question}
+        {parse(question)}
       </Typography>
       <Box display="flex" gap={3} justifyContent="center" mb={2}>
         <Option
@@ -57,7 +67,7 @@ const Question: FC<QuizPageProps> = ({
           variant="contained"
           color="primary"
           size="large"
-          onClick={answerQuestion}
+          onClick={handleClickContinue}
         >
           <Box mr={2}>Continue</Box>
           <BsArrowRightCircle color="white" size={20} />
