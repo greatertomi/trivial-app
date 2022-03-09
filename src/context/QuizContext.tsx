@@ -14,6 +14,7 @@ type QuizContextType = {
   quizQuestions: QuizQuestion[];
   quizLoading: boolean;
   quizError: any;
+  resetAnsweredQuestions: () => void;
 };
 
 const QuizContext = createContext<QuizContextType>({
@@ -22,23 +23,22 @@ const QuizContext = createContext<QuizContextType>({
   quizQuestions: [],
   quizLoading: false,
   quizError: null,
+  resetAnsweredQuestions: () => {},
 });
 
 const QuizProvider = ({ children }: { children: ReactNode }) => {
   const [answeredQuestions, setAnsweredQuestions] = useState<QuizAnswer[]>([]);
-  const { isLoading, error, data } = useQuery('queryData', () =>
+  const { isLoading, error, data } = useQuery('quizQuestions', () =>
     fetch(
       'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
     ).then((res) => res.json())
   );
 
   const addAnsweredQuestion = (answer: QuizAnswer) => {
-    console.log('CAQ ->', {
-      answer,
-      currentAnswers: [...answeredQuestions, answer],
-    });
     setAnsweredQuestions([...answeredQuestions, answer]);
   };
+
+  const resetAnsweredQuestions = () => setAnsweredQuestions([]);
 
   const context = useMemo(() => {
     return {
@@ -47,6 +47,7 @@ const QuizProvider = ({ children }: { children: ReactNode }) => {
       quizQuestions: data?.results,
       quizLoading: isLoading,
       quizError: error,
+      resetAnsweredQuestions,
     };
   }, [data?.results, answeredQuestions]);
   return (

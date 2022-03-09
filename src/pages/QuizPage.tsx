@@ -18,7 +18,7 @@ export const QuizPageContainer = styled.div`
 const QuizPage = () => {
   const { quizQuestions, quizError, quizLoading, addAnsweredQuestion } =
     useQuizContext();
-  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const [questionNumber, setQuestionNumber] = useState<number>(8);
   const navigate = useNavigate();
 
   const answerQuestion = (answer: QuizAnswer) => {

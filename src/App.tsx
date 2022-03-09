@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material';
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
@@ -11,26 +11,13 @@ import LandingPage from './pages/LandingPage';
 import QuizPage from './pages/QuizPage';
 import ReviewPage from './pages/ReviewPage';
 import { theme } from './theme';
+import { queryClient } from './utils/reactQuery';
 
 const BrowserRouter = styled(Router)`
   background-color: #f3f5f9;
   padding-bottom: 50px;
   min-height: 100vh;
 `;
-
-const twentyFourHoursInMs = 50000;
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      staleTime: twentyFourHoursInMs,
-    },
-  },
-});
 
 const App = () => {
   return (
