@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Emoji from '../components/Emoji';
 import QuizQuestion from '../components/review/QuizQuestion';
+import { useQuizContext } from '../context/QuizContext';
 
 const ReviewPageContainer = styled.div`
   display: flex;
@@ -17,18 +18,30 @@ const ReviewPageContainer = styled.div`
 `;
 
 const ReviewPage = () => {
+  const { answeredQuestions } = useQuizContext();
+  const correctAnswerNumber = answeredQuestions.filter((e) => e.correct).length;
+  const correctPercent = (correctAnswerNumber / answeredQuestions.length) * 100;
+
   return (
     <ReviewPageContainer>
       <Typography variant="h5" mb={1}>
-        You Scored 3/10 &nbsp;
-        <Emoji symbol="🎉" label="sheep" />
+        You Scored {correctAnswerNumber}/{answeredQuestions.length} &nbsp;
+        {correctPercent >= 80 && <Emoji symbol="🎉" label="tada" />}
+        {correctPercent >= 50 && correctPercent < 80 && (
+          <Emoji symbol="💪" label="muscles" />
+        )}
+        {correctPercent < 50 && (
+          <Emoji symbol="😑" label="Expressionless Face" />
+        )}
       </Typography>
-      <QuizQuestion question="This is the question" answer="True" passed />
-      <QuizQuestion
-        question="This is the question"
-        answer="True"
-        passed={false}
-      />
+      {answeredQuestions.map(({ question, answer, correct }) => (
+        <QuizQuestion
+          question={question}
+          answer={answer}
+          correct={correct}
+          key={question}
+        />
+      ))}
       <Box mt={1}>
         <Button
           component={Link}

@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 import React, { FC } from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
@@ -9,7 +10,7 @@ import {
   RED_COLOR,
 } from '../../utils/variables';
 
-const QuizQuestionContainer = styled.div<{ passed: boolean }>`
+const QuizQuestionContainer = styled.div<{ correct: boolean }>`
   background-color: #fff;
   margin: 0.5rem 0;
   padding: 1rem;
@@ -19,8 +20,8 @@ const QuizQuestionContainer = styled.div<{ passed: boolean }>`
   border-radius: 15px;
   border-width: 3px;
   border-style: solid;
-  border-color: ${({ passed }) =>
-    passed ? GREEN_BORDER_COLOR : RED_BORDER_COLOR};
+  border-color: ${({ correct }) =>
+    correct ? GREEN_BORDER_COLOR : RED_BORDER_COLOR};
 
   @media only screen and (max-width: 600px) {
     width: 500px;
@@ -34,18 +35,18 @@ const QuizQuestionContainer = styled.div<{ passed: boolean }>`
 interface QuizQuestionProps {
   question: string;
   answer: string;
-  passed: boolean;
+  correct: boolean;
 }
 
-const QuizQuestion: FC<QuizQuestionProps> = ({ question, answer, passed }) => {
+const QuizQuestion: FC<QuizQuestionProps> = ({ question, answer, correct }) => {
   return (
-    <QuizQuestionContainer passed={passed}>
+    <QuizQuestionContainer correct={correct}>
       <Typography variant="h6" textAlign="left">
-        {question}
+        {parse(question)}
       </Typography>
       <Box mt={1} display="flex" alignItems="center">
         <Box mr={1}>Your Answer: {answer}</Box>
-        {passed ? (
+        {correct ? (
           <FaCheck color={GREEN_COLOR} size={22} />
         ) : (
           <FaTimes color={RED_COLOR} size={22} />

@@ -3,7 +3,6 @@ import parse from 'html-react-parser';
 import { mapValues } from 'lodash';
 import React, { FC, useState } from 'react';
 import { BsArrowRightCircle, BsUpload } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 import Option from './Option';
 
 interface QuizPageProps {
@@ -11,6 +10,7 @@ interface QuizPageProps {
   category: string;
   question: string;
   answerQuestion: (answer: any) => void;
+  correctAnswer: string;
 }
 
 const Question: FC<QuizPageProps> = ({
@@ -18,6 +18,7 @@ const Question: FC<QuizPageProps> = ({
   category,
   question,
   answerQuestion,
+  correctAnswer,
 }) => {
   const [selected, setSelected] = useState({ true: false, false: false });
   const theme = useTheme();
@@ -33,7 +34,14 @@ const Question: FC<QuizPageProps> = ({
     if (!selected.true && !selected.false) {
       setQuestionError(true);
     } else {
-      answerQuestion({});
+      const answer = selected.true ? 'True' : selected.false ? 'False' : null;
+      answerQuestion({
+        question,
+        answer,
+        correct: correctAnswer === answer,
+      });
+      const resetSelected = mapValues(selected, () => false);
+      setSelected(resetSelected);
     }
   };
 
@@ -62,28 +70,24 @@ const Question: FC<QuizPageProps> = ({
           Please, answer this question
         </Typography>
       )}
-      {questionNumber < 10 ? (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={handleClickContinue}
-        >
-          <Box mr={2}>Continue</Box>
-          <BsArrowRightCircle color="white" size={20} />
-        </Button>
-      ) : (
-        <Button
-          component={Link}
-          to="/review"
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          <Box mr={2}>Submit</Box>
-          <BsUpload color="white" size={20} />
-        </Button>
-      )}
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        onClick={handleClickContinue}
+      >
+        {questionNumber < 10 ? (
+          <>
+            <Box mr={2}>Continue</Box>
+            <BsArrowRightCircle color="white" size={20} />
+          </>
+        ) : (
+          <>
+            <Box mr={2}>Submit</Box>
+            <BsUpload color="white" size={20} />
+          </>
+        )}
+      </Button>
     </>
   );
 };

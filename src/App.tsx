@@ -18,7 +18,19 @@ const BrowserRouter = styled(Router)`
   min-height: 100vh;
 `;
 
-const queryClient = new QueryClient();
+const twentyFourHoursInMs = 50000;
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: twentyFourHoursInMs,
+    },
+  },
+});
 
 const App = () => {
   return (

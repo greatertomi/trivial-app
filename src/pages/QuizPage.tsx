@@ -1,9 +1,10 @@
 import { Alert, Box, CircularProgress } from '@mui/material';
-import React, { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Question from '../components/quiz/Question';
-import { QuizQuestion } from '../types/quiz';
+import { useQuizContext } from '../context/QuizContext';
+import { QuizAnswer } from '../types/quiz';
 
 export const QuizPageContainer = styled.div`
   width: 600px;
@@ -15,28 +16,23 @@ export const QuizPageContainer = styled.div`
 `;
 
 const QuizPage = () => {
-  const { isLoading, error, data } =
-    useQuery('queryData', () =>
-      fetch(
-        'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
-      ).then((res) => res.json())
-    ) || {};
-  const [questionNumber] = useState(1);
+  const { quizQuestions, quizError, quizLoading, addAnsweredQuestion } =
+    useQuizContext();
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const navigate = useNavigate();
 
-  const quizQuestions = useMemo<QuizQuestion[]>(() => {
-    return data?.results;
-  }, [data?.results]);
-
-  console.log({ quizQuestions });
-
-  const answerQuestion = () => {
-    console.log('answering question');
+  const answerQuestion = (answer: QuizAnswer) => {
+    addAnsweredQuestion(answer);
+    setQuestionNumber(questionNumber + 1);
+    if (questionNumber >= 10) {
+      navigate('/review');
+    }
   };
 
   const renderQuestions = () => {
     return (
       <>
-        {error && (
+        {quizError && (
           <Box mb={2}>
             <Alert severity="error" title="This is cool">
               An error occurred while fetching data
@@ -48,6 +44,7 @@ const QuizPage = () => {
           category={quizQuestions[questionNumber - 1].category}
           question={quizQuestions[questionNumber - 1].question}
           answerQuestion={answerQuestion}
+          correctAnswer={quizQuestions[questionNumber - 1].correct_answer}
         />
       </>
     );
@@ -55,7 +52,7 @@ const QuizPage = () => {
 
   return (
     <QuizPageContainer>
-      {isLoading ? (
+      {quizLoading ? (
         <Box>
           <CircularProgress />
         </Box>
